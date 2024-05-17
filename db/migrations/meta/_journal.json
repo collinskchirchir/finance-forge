@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1715964592359,
+      "tag": "0000_slow_dorian_gray",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1715966396880,
+      "tag": "0001_superb_firebrand",
+      "breakpoints": true
+    }
+  ]
+}
