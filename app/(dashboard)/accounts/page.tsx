@@ -2,33 +2,23 @@
 import { Plus } from 'lucide-react';
 
 import React from 'react';
+import { useGetAccounts } from '@/features/accounts/api/use-get-accounts';
 import { useNewAccount } from '@/features/accounts/hooks/use-new-account';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-import { columns, Payment } from '@/app/(dashboard)/accounts/columns';
+import { columns } from '@/app/(dashboard)/accounts/columns';
 import { DataTable } from '@/components/data-table';
 
-const data: Payment[] = [
-  {
-    id: '728ed52f',
-    amount: 100,
-    status: 'pending',
-    email: 'm@example.com',
-  }, {
-    id: '728ed52asdff',
-    amount: 12343,
-    status: 'pending',
-    email: 'msdf@example.com',
-  },
-  // ...
-];
 
 const AccountsPage = () => {
   const { onOpen } = useNewAccount();
+  // fetch accounts data
+  const accountsQuery = useGetAccounts();
+  const accounts = accountsQuery.data || [];
   return (
     <div className="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
-      <Card className="bo\rder-none drop-shadow-sm">
+      <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="line-clamp-1 text-xl">
             Accounts Page
@@ -41,7 +31,7 @@ const AccountsPage = () => {
 
         {/* Account Data Table */}
         <CardContent>
-          <DataTable columns={columns} data={data} filterKey="email" onDelete={() => {
+          <DataTable columns={columns} data={accounts} filterKey="email" onDelete={() => {
           }} disabled={false} />
         </CardContent>
 
