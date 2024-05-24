@@ -15,6 +15,11 @@ const data: Payment[] = [
     amount: 100,
     status: 'pending',
     email: 'm@example.com',
+  }, {
+    id: '728ed52asdff',
+    amount: 12343,
+    status: 'pending',
+    email: 'msdf@example.com',
   },
   // ...
 ];
@@ -38,7 +43,7 @@ const AccountsPage = () => {
         <CardContent>
           <DataTable columns={columns} data={data} />
         </CardContent>
-        
+
       </Card>
     </div>
   );
