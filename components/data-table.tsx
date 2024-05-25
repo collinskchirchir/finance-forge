@@ -70,7 +70,15 @@ export function DataTable<TData, TValue>(
         />
         {/*  Delete Selection */}
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
-          <Button size="sm" variant="outline" className="ml-auto text-xs font-normal" disabled={disabled}>
+          <Button
+            size="sm"
+            variant="outline"
+            className="ml-auto text-xs font-normal" disabled={disabled}
+            onClick={() => {
+              onDelete(table.getFilteredSelectedRowModel().rows);
+              table.resetRowSelection();
+            }}
+          >
             <Trash className="mr-2 size-4" />
             Delete ({table.getFilteredSelectedRowModel().rows.length})
           </Button>)}
