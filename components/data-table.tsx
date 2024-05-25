@@ -16,6 +16,7 @@ import {
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { useConfirm } from '@/hooks/use-confirm';
 import React from 'react';
 import { Input } from '@/components/ui/input';
 
@@ -30,6 +31,9 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>(
   { columns, data, filterKey, onDelete, disabled }: DataTableProps<TData, TValue>,
 ) {
+  const [ConfirmDialog, confirm] = useConfirm(
+    'Are you sure?',
+    'You are about to perform a bulk delete');
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -56,6 +60,7 @@ export function DataTable<TData, TValue>(
 
   return (
     <div>
+      <ConfirmDialog />
 
       {/* TODO: Switch to Global Column filtering */}
       {/* Column Filtering */}
@@ -74,9 +79,12 @@ export function DataTable<TData, TValue>(
             size="sm"
             variant="outline"
             className="ml-auto text-xs font-normal" disabled={disabled}
-            onClick={() => {
-              onDelete(table.getFilteredSelectedRowModel().rows);
-              table.resetRowSelection();
+            onClick={async () => {
+              const ok = await confirm();
+              if (ok) {
+                onDelete(table.getFilteredSelectedRowModel().rows);
+                table.resetRowSelection();
+              }
             }}
           >
             <Trash className="mr-2 size-4" />
