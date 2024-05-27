@@ -51,7 +51,7 @@ const app = new Hono()
         .where(
           and(
             eq(accounts.userId, auth.userId),
-            eq(accounts.userId, id), // only fetching 'id' passed as param
+            eq(accounts.id, id), // only fetching 'id' passed as param
           ),
         );
       if (!data) {
