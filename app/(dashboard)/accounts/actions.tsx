@@ -7,12 +7,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Edit, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useOpenAccount } from '@/features/accounts/hooks/use-open-account';
 
 type Props = {
   id: string;
 }
 
 const Actions = ({ id }: Props) => {
+  const { onOpen } = useOpenAccount();
   return (
     <>
       <DropdownMenu>
@@ -28,6 +30,7 @@ const Actions = ({ id }: Props) => {
           <DropdownMenuItem
             disabled={false}
             onClick={() => {
+              onOpen(id);
             }}
           >
             <Edit className="mr-2 size-4" />

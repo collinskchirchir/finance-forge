@@ -7,6 +7,7 @@ import { useOpenAccount } from '@/features/accounts/hooks/use-open-account';
 import { insertAccountSchema } from '@/db/schema';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { useCreateAccount } from '@/features/accounts/api/use-create-account';
+import { Loader2 } from 'lucide-react';
 
 const formSchema = insertAccountSchema.pick({
   name: true,
@@ -20,6 +21,8 @@ export const EditAccountSheet = () => {
   const accountQuery = useGetAccount(id);
 
   const mutation = useCreateAccount();
+
+  const isLoading = accountQuery.isLoading;
 
   const onSubmit = (values: FormValues) => {
     mutation.mutate(values, {
@@ -39,17 +42,27 @@ export const EditAccountSheet = () => {
       <SheetContent className="space-y-4">
         <SheetHeader>
           <SheetTitle>
-            New Account
+            Edit Account
           </SheetTitle>
           <SheetDescription>
-            Create a new account to track your transactions
+            Edit an existing Account
           </SheetDescription>
         </SheetHeader>
-        <AccountForm
-          onSubmit={onSubmit}
-          disabled={mutation.isPending}
-          defaultValues={defaultValues}
-        />
+        {isLoading
+          ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Loader2 className="size-4 animate-spin text-muted-foreground" />
+            </div>
+          )
+          : (
+            <AccountForm
+              id={id}
+              onSubmit={onSubmit}
+              disabled={mutation.isPending}
+              defaultValues={defaultValues}
+            />
+          )
+        }
       </SheetContent>
     </Sheet>
   );
