@@ -202,7 +202,10 @@ const app = new Hono()
       const [data] = await db
         .with(transactionsToUpdate)
         .update(transactions)
-        .set(values)
+        .set({
+          updatedAt: sql`current_timestamp`,
+          ...values,
+        })
         .where(
           inArray(transactions.id, sql`(select id from ${transactionsToUpdate})`),
         )
