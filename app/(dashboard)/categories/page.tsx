@@ -2,29 +2,29 @@
 import { Loader2, Plus } from 'lucide-react';
 
 import React from 'react';
-import { useGetAccounts } from '@/features/accounts/api/use-get-accounts';
-import { useBulkDeleteAccounts } from '@/features/accounts/api/use-bulk-delete';
-import { useNewAccount } from '@/features/accounts/hooks/use-new-account';
+import { useGetCategories } from '@/features/categories/api/use-get-categories';
+import { useBulkDeleteCategories } from '@/features/categories/api/use-bulk-delete-categories';
+import { useNewCategory } from '@/features/categories/hooks/use-new-category';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-import { columns } from '@/app/(dashboard)/accounts/columns';
+import { columns } from '@/app/(dashboard)/categories/columns';
 import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
 const CategoriesPage = () => {
-  const { onOpen } = useNewAccount();
-  const deleteAccounts = useBulkDeleteAccounts();
-  // fetch accounts data
-  const accountsQuery = useGetAccounts();
-  const accounts = accountsQuery.data || [];
+  const { onOpen } = useNewCategory();
+  const deleteCategories = useBulkDeleteCategories();
+  // fetch categories data
+  const categoriesQuery = useGetCategories();
+  const categories = categoriesQuery.data || [];
 
   const isDisabled =
-    accountsQuery.isLoading ||
-    deleteAccounts.isPending;
+    categoriesQuery.isLoading ||
+    deleteCategories.isPending;
 
-  if (accountsQuery.isLoading) {
+  if (categoriesQuery.isLoading) {
     return (
       <div className="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
         <Card className="border-none drop-shadow-sm">
@@ -55,15 +55,15 @@ const CategoriesPage = () => {
           </Button>
         </CardHeader>
 
-        {/* Account Data Table */}
+        {/* Category Data Table */}
         <CardContent>
           <DataTable
             columns={columns}
-            data={accounts}
+            data={categories}
             filterKey="name"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
-              deleteAccounts.mutate({ ids });
+              deleteCategories.mutate({ ids });
             }}
             disabled={isDisabled} />
         </CardContent>

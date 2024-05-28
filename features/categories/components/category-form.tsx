@@ -1,5 +1,5 @@
 import React from 'react';
-import { insertAccountSchema } from '@/db/schema';
+import { insertCategorySchema } from '@/db/schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Trash } from 'lucide-react';
 
-const formSchema = insertAccountSchema.pick({
+const formSchema = insertCategorySchema.pick({
   name: true,
 });
 
@@ -49,7 +49,7 @@ export const CategoryForm = ({ id, defaultValues, onSubmit, onDelete, disabled }
               <FormControl>
                 <Input
                   disabled={disabled}
-                  placeholder="e.g. Cash, Bank, Credit Card" {...field}
+                  placeholder="e.g. Food, Travel, Groceries" {...field}
                 />
               </FormControl>
             </FormItem>
@@ -58,7 +58,7 @@ export const CategoryForm = ({ id, defaultValues, onSubmit, onDelete, disabled }
 
         {/*  Submit/ Save Changes */}
         <Button className="w-full" disabled={disabled}>
-          {id ? 'Save Changes' : 'Create Account'}
+          {id ? 'Save Changes' : 'Create Category'}
         </Button>
 
         {!!id &&
@@ -66,11 +66,11 @@ export const CategoryForm = ({ id, defaultValues, onSubmit, onDelete, disabled }
             type="button"
             disabled={disabled}
             onClick={handleDelete}
-            variant="outline"
+            variant="destructive"
             className="w-full"
           >
             <Trash className="mr-2 size-4" />
-            Delete Account
+            Delete Category
           </Button>}
       </form>
 

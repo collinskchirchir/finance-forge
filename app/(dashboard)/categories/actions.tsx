@@ -1,7 +1,9 @@
 import React from 'react';
-import { useOpenAccount } from '@/features/accounts/hooks/use-open-account';
-import { useDeleteAccount } from '@/features/accounts/api/use-delete-account';
+
 import { useConfirm } from '@/hooks/use-confirm';
+import { useOpenCategory } from '@/features/categories/hooks/use-open-category';
+import { useDeleteCategory } from '@/features/categories/api/use-delete-category';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,13 +18,13 @@ type Props = {
 }
 
 const Actions = ({ id }: Props) => {
+  const deleteMutation = useDeleteCategory(id);
+  const isDisabled = deleteMutation.isPending;
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'You are about to delete this account.',
   );
-  const deleteMutation = useDeleteAccount(id);
-  const isDisabled = deleteMutation.isPending;
-  const { onOpen } = useOpenAccount();
+  const { onOpen } = useOpenCategory();
   const handleDelete = async () => {
     const ok = await confirm();
     if (ok) {

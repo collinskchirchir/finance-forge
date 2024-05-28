@@ -7,9 +7,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { client } from '@/lib/hono';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import Actions from '@/app/(dashboard)/accounts/actions';
+import Actions from '@/app/(dashboard)/categories/actions';
 
-export type ResponseType = InferResponseType<typeof client.api.accounts.$get, 200>['data'][0]
+export type ResponseType = InferResponseType<typeof client.api.categories.$get, 200>['data'][0]
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
