@@ -13,7 +13,7 @@ import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
-const AccountsPage = () => {
+const CategoriesPage = () => {
   const { onOpen } = useNewAccount();
   const deleteAccounts = useBulkDeleteAccounts();
   // fetch accounts data
@@ -47,7 +47,7 @@ const AccountsPage = () => {
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="line-clamp-1 text-xl">
-            Accounts Page
+            Categories Page
           </CardTitle>
           <Button size="sm" onClick={onOpen}>
             <Plus className="mr-2 size-4" />
@@ -73,4 +73,4 @@ const AccountsPage = () => {
   );
 };
 
-export default AccountsPage;
+export default CategoriesPage;
