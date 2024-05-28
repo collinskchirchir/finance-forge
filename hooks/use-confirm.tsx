@@ -35,10 +35,12 @@ export const useConfirm = (title: string, message: string): [() => JSX.Element, 
         <DialogFooter className="pt-2">
           <Button
             onClick={handleCancel}
+            variant="outline"
           >
             Cancel
           </Button>
           <Button
+            variant="destructive"
             onClick={handleConfirm}>
             Confirm
           </Button>
