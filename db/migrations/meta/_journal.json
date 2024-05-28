@@ -22,6 +22,20 @@
       "when": 1716903795262,
       "tag": "0002_new_anita_blake",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1716918045852,
+      "tag": "0003_curious_logan",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1716918459393,
+      "tag": "0004_ambitious_anthem",
+      "breakpoints": true
     }
   ]
 }
