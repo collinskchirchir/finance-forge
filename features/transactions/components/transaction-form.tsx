@@ -23,7 +23,7 @@ type Props = {
 
 }
 
-export const AccountForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props) => {
+export const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues,
