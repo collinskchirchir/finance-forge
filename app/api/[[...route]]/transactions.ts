@@ -108,7 +108,11 @@ const app = new Hono()
     '/',
     clerkMiddleware(),
     zValidator('json', insertTransactionSchema.omit(
-      { id: true },
+      {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     )),
     async (c) => {
       const auth = getAuth(c);
@@ -117,10 +121,13 @@ const app = new Hono()
         return c.json({ error: 'Unauthorized' }, 401);
       }
 
-      const [data] = await db.insert(transactions).values({
-        id: createId(),
-        ...values,
-      }).returning();
+      const [data] = await db
+        .insert(transactions)
+        .values({
+          id: createId(),
+          ...values,
+        })
+        .returning();
 
       return c.json({ data });
     })
@@ -173,6 +180,8 @@ const app = new Hono()
       'json',
       insertTransactionSchema.omit({
         id: true,
+        createdAt: true,
+        updatedAt: true,
       }),
     ),
     async (c) => {
