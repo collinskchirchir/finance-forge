@@ -1,6 +1,8 @@
 import { z } from 'zod';
+import { Loader2 } from 'lucide-react';
 
 import { useCreateTransaction } from '@/features/transactions/api/use-create-transaction';
+import { TransactionForm } from '@/features/transactions/components/transaction-form';
 import { insertTransactionSchema } from '@/db/schema';
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
 import { useCreateCategory } from '@/features/categories/api/use-create-category';
@@ -21,7 +23,7 @@ type FormValues = z.input<typeof formSchema>;
 export const NewTransactionSheet = () => {
   const { isOpen, onClose } = useNewTransaction();
 
-  const mutation = useCreateTransaction();
+  const createMutation = useCreateTransaction();
 
   // Fetch Categories and mapped them fit Categories Select option
   const categoryQuery = useGetCategories();
@@ -45,8 +47,18 @@ export const NewTransactionSheet = () => {
     value: account.id,
   }));
 
+  const isPending =
+    createMutation.isPending ||
+    categoryMutation.isPending ||
+    accountMutation.isPending;
+
+  const isLoading =
+    categoryQuery.isLoading ||
+    accountQuery.isLoading;
+
+
   const onSubmit = (values: FormValues) => {
-    mutation.mutate(values, {
+    creatMutation.mutate(values, {
       onSuccess: () => {
         onClose();
       },
@@ -63,7 +75,22 @@ export const NewTransactionSheet = () => {
             Add a new transaction
           </SheetDescription>
         </SheetHeader>
-        {/*  TODO: Transaction Form */}
+        {isLoading
+          ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Loader2 className="size-4 animate-spin text-muted-foreground" />
+            </div>
+          )
+          : (
+            <TransactionForm
+              onSubmit={onSubmit}
+              disabled={isPending}
+              categoryOptions={categoryOptions}
+              onCreateCategory={onCreateCategory}
+              accountOptions={accountOptions}
+              onCreateAccount={onCreateAccount}
+            />
+          )}
       </SheetContent>
     </Sheet>
   );

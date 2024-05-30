@@ -1,36 +1,63 @@
 import React from 'react';
-import { insertAccountSchema } from '@/db/schema';
+import { z } from 'zod';
+import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Trash } from 'lucide-react';
 
-const formSchema = insertAccountSchema.pick({
-  name: true,
+import { Select } from '@/components/select';
+import { Button } from '@/components/ui/button';
+import { insertTransactionSchema } from '@/db/schema';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+
+const formSchema = z.object({
+  date: z.coerce.date(),
+  accountId: z.string(),
+  categoryId: z.string().nullable().optional(),
+  payee: z.string(),
+  amount: z.string(),
+  notes: z.string().nullable().optional(),
+});
+
+const apiSchema = insertTransactionSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 type FormValues = z.input<typeof formSchema>
+type ApiFormValues = z.input<typeof apiSchema>
 
 type Props = {
   id?: string,
   defaultValues?: FormValues;
-  onSubmit: (values: FormValues) => void;
+  onSubmit: (values: ApiFormValues) => void;
   onDelete?: () => void;
   disabled?: boolean
-
+  accountOptions: { label: string; value: string }[]
+  categoryOptions: { label: string; value: string }[]
+  onCreateAccount: (name: string) => void
+  onCreateCategory: (name: string) => void
 }
 
-export const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disabled }: Props) => {
+export const TransactionForm = ({
+                                  id,
+                                  defaultValues,
+                                  onSubmit,
+                                  onDelete,
+                                  disabled,
+                                  accountOptions,
+                                  categoryOptions,
+                                  onCreateCategory,
+                                  onCreateAccount,
+                                }: Props) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
   const handleSubmit = (values: FormValues) => {
-    onSubmit(values);
+    console.log({ values });
+    // onSubmit(values);
   };
 
   const handleDelete = () => {
@@ -39,17 +66,41 @@ export const TransactionForm = ({ id, defaultValues, onSubmit, onDelete, disable
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 pt-4">
-        {/* Name */}
+        {/* Account */}
         <FormField
-          name="name"
+          name="accountId"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Account</FormLabel>
               <FormControl>
-                <Input
+                <Select
+                  placeholder="Select an account"
+                  options={accountOptions}
+                  onCreate={onCreateAccount}
+                  value={field.value}
+                  onChange={field.onChange}
                   disabled={disabled}
-                  placeholder="e.g. Cash, Bank, Credit Card" {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        {/* Category */}
+        <FormField
+          name="accountId"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <FormControl>
+                <Select
+                  placeholder="Select an category"
+                  options={categoryOptions}
+                  onCreate={onCreateCategory}
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
                 />
               </FormControl>
             </FormItem>
