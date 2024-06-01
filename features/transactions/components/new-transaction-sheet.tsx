@@ -58,7 +58,7 @@ export const NewTransactionSheet = () => {
 
 
   const onSubmit = (values: FormValues) => {
-    creatMutation.mutate(values, {
+    createMutation.mutate(values, {
       onSuccess: () => {
         onClose();
       },

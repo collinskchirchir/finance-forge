@@ -5,7 +5,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Select } from '@/components/select';
+import { DatePicker } from '@/components/date-picker';
+import { AmountInput } from '@/components/amount-input';
+import { convertAmountToMiliuinits } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { insertTransactionSchema } from '@/db/schema';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 
@@ -56,8 +61,14 @@ export const TransactionForm = ({
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
-    // onSubmit(values);
+    const amount = parseFloat(values.amount);
+    const amountInMiliunits = convertAmountToMiliuinits(amount);
+
+    onSubmit({
+      ...values,
+      amount: amountInMiliunits,
+    });
+
   };
 
   const handleDelete = () => {
@@ -66,6 +77,22 @@ export const TransactionForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 pt-4">
+        {/* Date */}
+        <FormField
+          name="date"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date</FormLabel>
+              <FormControl>
+                <DatePicker
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         {/* Account */}
         <FormField
           name="accountId"
@@ -88,7 +115,7 @@ export const TransactionForm = ({
         />
         {/* Category */}
         <FormField
-          name="accountId"
+          name="categoryId"
           control={form.control}
           render={({ field }) => (
             <FormItem>
@@ -106,10 +133,62 @@ export const TransactionForm = ({
             </FormItem>
           )}
         />
+        {/* Payee input */}
+        <FormField
+          name="payee"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Payee</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={disabled}
+                  placeholder="Add a payee"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        {/* Amount input */}
+        <FormField
+          name="amount"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Amount</FormLabel>
+              <FormControl>
+                <AmountInput
+                  {...field}
+                  disabled={disabled}
+                  placeholder="0.00"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        {/* Notes textarea */}
+        <FormField
+          name="notes"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Notes</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  value={field.value ?? ''}
+                  disabled={disabled}
+                  placeholder="Optional notes"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
 
         {/*  Submit/ Save Changes */}
         <Button className="w-full" disabled={disabled}>
-          {id ? 'Save Changes' : 'Create Account'}
+          {id ? 'Save Changes' : 'Create Transaction'}
         </Button>
 
         {!!id &&
@@ -121,7 +200,7 @@ export const TransactionForm = ({
             className="w-full"
           >
             <Trash className="mr-2 size-4" />
-            Delete Account
+            Delete Transaction
           </Button>}
       </form>
 
