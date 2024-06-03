@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-import { Trash } from 'lucide-react';
+import { Loader2, Trash } from 'lucide-react';
 
 const formSchema = insertAccountSchema.pick({
   name: true,
@@ -58,6 +58,12 @@ export const AccountForm = ({ id, defaultValues, onSubmit, onDelete, disabled }:
 
         {/*  Submit/ Save Changes */}
         <Button className="w-full" disabled={disabled}>
+          {disabled && (
+            <Loader2
+              className="mr-2 size-4 animate-spin"
+              aria-hidden="true"
+            />
+          )}
           {id ? 'Save Changes' : 'Create Account'}
         </Button>
 
