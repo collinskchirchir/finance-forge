@@ -4,7 +4,7 @@ import { Loader2, Plus } from 'lucide-react';
 import React from 'react';
 
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction';
-import { useGetTransaction } from '@/features/transactions/api/use-get-transaction';
+import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,8 +17,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 const TransactionsPage = () => {
   const newTransaction = useNewTransaction();
   const deleteTransactions = useBulkDeleteTransactions();
-  // fetch accounts data
-  const transactionsQuery = useGetTransaction();
+  // fetch transactions data
+  const transactionsQuery = useGetTransactions();
   const transactions = transactionsQuery.data || [];
 
   const isDisabled =
@@ -56,12 +56,12 @@ const TransactionsPage = () => {
           </Button>
         </CardHeader>
 
-        {/* Account Data Table */}
+        {/* Transactions Data Table */}
         <CardContent>
           <DataTable
             columns={columns}
             data={transactions}
-            filterKey="name"
+            filterKey="payee"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
               deleteTransactions.mutate({ ids });

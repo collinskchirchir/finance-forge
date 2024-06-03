@@ -12,3 +12,11 @@ export function convertAmountToMiliuinits(amount: number) {
 export function convertAmountFromMiliuinits(amount: number) {
   return amount / 1000;
 }
+
+export function formatCurrency(value: number) {
+  return Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'KES',
+    minimumFractionDigits: 2,
+  }).format(value);
+}
