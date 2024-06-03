@@ -1,6 +1,6 @@
 import React from 'react';
 import { z } from 'zod';
-import { Trash } from 'lucide-react';
+import { Loader2, Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -185,9 +185,14 @@ export const TransactionForm = ({
             </FormItem>
           )}
         />
-
         {/*  Submit/ Save Changes */}
         <Button className="w-full" disabled={disabled}>
+          {disabled && (
+            <Loader2
+              className="mr-2 size-4 animate-spin"
+              aria-hidden="true"
+            />
+          )}
           {id ? 'Save Changes' : 'Create Transaction'}
         </Button>
 
