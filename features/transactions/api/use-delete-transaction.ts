@@ -16,7 +16,13 @@ export const useDeleteTransaction = (id?: string) => {
       });
       return await response.json();
     },
+    onMutate: () => {
+      // Display a toast notification when the mutation starts
+      toast.loading('Deleting transaction...');
+    },
     onSuccess: () => {
+      // Remove toast.loading
+      toast.dismiss();
       toast.success('Transaction Deleted');
       queryClient.invalidateQueries({ queryKey: ['transactions', { id }] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });

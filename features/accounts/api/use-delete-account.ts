@@ -16,7 +16,13 @@ export const useDeleteAccount = (id?: string) => {
       });
       return await response.json();
     },
+    onMutate: () => {
+      // Display a toast notification when the mutation starts
+      toast.loading('Deleting account...');
+    },
     onSuccess: () => {
+      // Remove toast.loading
+      toast.dismiss();
       toast.success('Account Deleted');
       queryClient.invalidateQueries({ queryKey: ['accounts', { id }] });
       queryClient.invalidateQueries({ queryKey: ['accounts'] });

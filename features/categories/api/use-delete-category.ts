@@ -16,7 +16,13 @@ export const useDeleteCategory = (id?: string) => {
       });
       return await response.json();
     },
+    onMutate: () => {
+      // Display a toast notification when the mutation starts
+      toast.loading('Deleting category...');
+    },
     onSuccess: () => {
+      // Remove toast.loading
+      toast.dismiss();
       toast.success('Category Deleted');
       queryClient.invalidateQueries({ queryKey: ['categories', { id }] });
       queryClient.invalidateQueries({ queryKey: ['categories'] });
