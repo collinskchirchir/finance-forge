@@ -10,7 +10,7 @@ import { formatCurrency } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import Actions from '@/app/(dashboard)/accounts/actions';
+import Actions from '@/app/(dashboard)/transactions/actions';
 import { AccountColumn } from './account-column';
 import { CategoryColumn } from '@/app/(dashboard)/transactions/category-column';
 
