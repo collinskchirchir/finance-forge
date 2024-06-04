@@ -15,7 +15,13 @@ export const useBulkDeleteTransactions = () => {
       const response = await client.api.transactions['bulk-delete'].$post({ json });
       return await response.json();
     },
+    onMutate: () => {
+      // Display a toast notification when the mutation starts
+      toast.loading('Deleting transactions...');
+    },
     onSuccess: () => {
+      // Remove toast.loading
+      toast.dismiss();
       toast.success('Transactions Deleted');
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       //   TODO: Also invalidate summary

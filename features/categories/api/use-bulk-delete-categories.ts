@@ -15,18 +15,13 @@ export const useBulkDeleteCategories = () => {
       const response = await client.api.categories['bulk-delete'].$post({ json });
       return await response.json();
     },
-    // TODO: Show Toast bulk delete categories loading state onMutate
-    /** onMutate: () => {
-     // Display a toast notification when the mutation starts
-     const loadingToast = toast.loading('Updating category...');
-
-     // Return a cleanup function to dismiss the loading toast
-     return () => {
-     toast.dismiss(loadingToast);
-     };
-     },
-     */
+    onMutate: () => {
+      // Display a toast notification when the mutation starts
+      toast.loading('Deleting categories...');
+    },
     onSuccess: () => {
+      // Remove toast.loading
+      toast.dismiss();
       toast.success('Categories Deleted');
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       //   TODO: Also invalidate summary
