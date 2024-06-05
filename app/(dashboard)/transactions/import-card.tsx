@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { convertAmountToMiliuinits } from '@/lib/utils';
 import { format, parse } from 'date-fns';
 
-const dateFormat = 'yyyy-MM-dd';
+const dateFormat = 'yyyy-MM-dd HH:mm:ss';
 const outputFormat = 'yyyy-MM-dd';
 
 const requiredOptions = [
@@ -87,7 +87,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
       amount: convertAmountToMiliuinits(parseFloat(item.amount)),
       date: format(parse(item.date, dateFormat, new Date()), outputFormat),
     }));
-    onSubmit(formattedData);
+    console.log({ formattedData });
   };
   return (
     <div className="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
