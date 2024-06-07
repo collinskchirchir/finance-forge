@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate:pg --schema ./db/schema.ts --out ./db/migrations",
-    "db:migrate": "bun run ./scripts/migrate.ts",
+    "db:migrate": "bun ./scripts/migrate.ts",
+    "db:seed": "bun ./scripts/seed.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
