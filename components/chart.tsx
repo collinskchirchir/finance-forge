@@ -1,4 +1,6 @@
-import { FileSearch } from 'lucide-react';
+import { AreaChart, BarChart3, FileSearch, LineChart } from 'lucide-react';
+import { useState } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import LineVariant from '@/components/line-variant';
@@ -14,11 +16,40 @@ type Props = {
 }
 
 export const Chart = ({ data = [] }: Props) => {
+  const [chartType, setChartType] = useState('area');
+  const onTypeChange = (type: string) => {
+    // TODO: Add Paywall
+    setChartType(type);
+  };
   return (
     <Card className="border-none drop-shadow-sm ">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
         <CardTitle className="line-clamp-1 text-xl">Transactions</CardTitle>
-        {/*  TODO: Add Select */}
+        <Select defaultValue={chartType} onValueChange={onTypeChange}>
+          <SelectTrigger className="h-9 rounded-md px-3 lg:w-auto">
+            <SelectValue placeholder="ChartType" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="area">
+              <div className="flex items-center">
+                <AreaChart className="mr-2 size-4 shrink-0" />
+                <p className="line-clamp-1">Area chart</p>
+              </div>
+            </SelectItem>
+            <SelectItem value="line">
+              <div className="flex items-center">
+                <LineChart className="mr-2 size-4 shrink-0" />
+                <p className="line-clamp-1">Line chart</p>
+              </div>
+            </SelectItem>
+            <SelectItem value="bar">
+              <div className="flex items-center">
+                <BarChart3 className="mr-2 size-4 shrink-0" />
+                <p className="line-clamp-1">Bar chart</p>
+              </div>
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </CardHeader>
       <CardContent className="flex flex-row items-center justify-between">
         {data.length === 0 ? (
@@ -30,9 +61,9 @@ export const Chart = ({ data = [] }: Props) => {
           </div>
         ) : (
           <>
-            <AreaVariant data={data} />
-            <BarVariant data={data} />
-            <LineVariant data={data} />
+            {chartType === 'area' && <AreaVariant data={data} />}
+            {chartType === 'bar' && <BarVariant data={data} />}
+            {chartType === 'line' && <LineVariant data={data} />}
           </>
         )}
       </CardContent>
