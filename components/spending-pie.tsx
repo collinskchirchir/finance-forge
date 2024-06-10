@@ -4,6 +4,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { PieVariant } from '@/components/pie-variant';
+import { RadarVariant } from '@/components/radar-variant';
+import { RadialVariant } from '@/components/radial-variant';
 
 type Props = {
   data?: {
@@ -59,8 +61,8 @@ export const SpendingPie = ({ data = [] }: Props) => {
         ) : (
           <>
             {chartType === 'pie' && <PieVariant data={data} />}
-            {/* {chartType === 'radar' && <RadarVariant data={data} />} */}
-            {/* {chartType === 'radial' && <RadialVariant data={data} />} */}
+            {chartType === 'radar' && <RadarVariant data={data} />}
+            {chartType === 'radial' && <RadialVariant data={data} />}
           </>
         )}
       </CardContent>
