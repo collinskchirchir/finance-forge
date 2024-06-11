@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun dev",
-    "build": "bun run build",
-    "start": "bun run start",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate:pg --schema ./db/schema.ts --out ./db/migrations",
     "db:migrate": "bun ./scripts/migrate.ts",
