@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "bun run build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate:pg --schema ./db/schema.ts --out ./db/migrations",
