@@ -18,23 +18,13 @@ export const useEditCategory = (id?: string) => {
       });
       return await response.json();
     },
-    // TODO: Show Toast loading state onMutate
-    /** onMutate: () => {
-     // Display a toast notification when the mutation starts
-     const loadingToast = toast.loading('Updating category...');
-
-     // Return a cleanup function to dismiss the loading toast
-     return () => {
-     toast.dismiss(loadingToast);
-     };
-     },
-     */
     onSuccess: () => {
       toast.success('Category Updated');
       queryClient.invalidateQueries({ queryKey: ['categories', { id }] });
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      // TODO: Invalidate summary
+      queryClient.invalidateQueries({ queryKey: ['summary'] });
+
     },
     onError: () => {
       toast.error('Failed to Edit Category');
