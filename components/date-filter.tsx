@@ -67,7 +67,7 @@ const DateFilter = () => {
       </PopoverTrigger>
       <PopoverContent className="w-full p-0 lg:w-auto" align="start">
         <Calendar
-          disabled={false}
+          disabled={isLoadingSummary}
           initialFocus
           mode="range"
           defaultMonth={date?.from}

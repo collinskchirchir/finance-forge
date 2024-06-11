@@ -73,7 +73,7 @@ export const SpendingPie = ({ data = [] }: Props) => {
 
 export const SpendingPieLoading = () => {
   return (
-    <Card className='"> border-none drop-shadow-sm'>
+    <Card className="border-none drop-shadow-sm">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="h-8 w-full lg:w-[120px]" />

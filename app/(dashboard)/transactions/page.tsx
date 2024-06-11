@@ -19,9 +19,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UploadButton } from '@/app/(dashboard)/transactions/upload-button';
 import { ImportCard } from '@/app/(dashboard)/transactions/import-card';
 
+// eslint-disable-next-line no-unused-vars
 enum VARIANTS {
-  LIST = 'LIST',
-  IMPORT = 'IMPORT'
+  // eslint-disable-next-line no-unused-vars
+  LIST = 'LIST', IMPORT = 'IMPORT'
 }
 
 const INITIAL_IMPORT_RESULTS = {
