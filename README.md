@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Requirements
+
+- nodejs (20.9.0 or later) https://nodejs.org/en
+- bun (1.1.13 or later) https://bun.sh/ (recommended)
+- pnpm (8.10.5) or Node package manager https://pnpm.io/
 
 ## Getting Started
 
-First, run the development server:
+### Setting Environment Variables
+
+Open your terminal, navigate to the root directory of the project and execute the following command:
+
+``` bash
+cp .env.example .env
+```
+
+This command copies the provided example file for local environment variables. Now, proceed to fill in the values for
+the following environmental variables in the newly created .env file.
+
+### Installation
+
+First, install dependencies:
 
 ```bash
-npm run dev
+bun install
 # or
-yarn dev
+pnpm install
+# or
+npm install
+```
+
+Run the development server:
+
+```bash
+bun dev
 # or
 pnpm dev
 # or
-bun dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Build with [Next.js 14](https://nextjs.org/)(App Router)
+- Fast and lightweight [Hono API](https://hono.dev/) web framework
+- [Drizzle ORM](https://orm.drizzle.team/) to interact with [Neon Postgresql](https://neon.tech/) serverless database
+- Build with [Shadcn UI](https://ui.shadcn.com/, HeadlessUI, React
+  Icons, [TypeScript](https://www.typescriptlang.org/) & [Tailwind CSS](https://tailwindcss.com/)
+- Authentication and Authorization with [Clerk](https://clerk.dev/)
+- Beautifully crafted dashboard widgets
+- Charts are built on top of [Recharts](https://recharts.org/en-US) package with limitless customization
+- A mobile friendly controlled [TanStack Table](https://tanstack.com/table/latest) component for display any kind of
+  large amount of data with pagination, filtering and sorting options
 
-## Learn More
+## Key Features
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[![Technologies Used](https://skillicons.dev/icons?i=bun,nextjs,ts,tailwind,postgres,vercel)](https://skillicons.dev)
